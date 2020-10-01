@@ -9,14 +9,8 @@ The wireless automation fairness between two clients via one server
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Install OpenWrt for routers [OpenWrt](https://openwrt.org/docs/guide-user/installation/generic.flashing#installing_openwrt)<br/>
 Install ansible base on operating System [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) 
-
-```bash
-pip install foobar
-```
-
-
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
