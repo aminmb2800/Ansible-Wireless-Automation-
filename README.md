@@ -3,8 +3,8 @@ The wireless automation fairness between two clients via one server
 
 ## Usage
 
--Evaluate the impact of particular configuration settings across pre-defined scenarios
--Explore the configuration space of Wi-Fi
+-Evaluate the impact of particular configuration settings across pre-defined scenarios <br/>
+-Explore the configuration space of Wi-Fi <br/>
 -Use automation tools to efficiently gather data
 
 ## Installation
