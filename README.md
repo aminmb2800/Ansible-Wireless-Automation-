@@ -10,6 +10,7 @@ The wireless automation fairness between two clients via one server
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Install ansible base on operating System [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) 
 
 ```bash
 pip install foobar
