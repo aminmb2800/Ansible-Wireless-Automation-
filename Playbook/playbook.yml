@@ -1,0 +1,109 @@
+
+---
+#Disconnect the Server Router Wirelesses radio and reset it 
+- hosts: server
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: disconnect server
+     shell:  uci set wireless.radio0.disabled=1 | uci commit wireless 
+#Disconnect the Server Router Wirelesses radio and reset it 
+- hosts: server
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: disconnect server
+     shell:  uci set wireless.default_radio0.disabled=1 | uci commit wireless 
+#Disconnect the Server Router Wirelesses radio and reset it 
+- hosts: server
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: disconnect server
+     shell:  uci set wireless.radio1.disabled=1 | uci commit wireless 
+
+# fetch your desire configuration in order to serving to your clients  
+- hosts: server
+  remote_user: root
+  connection: local
+  tasks:
+    - name: fetch hostapd
+      shell: scp /etc/ansible/wireless root@"write your server IP":/etc/config 
+# make sure the wireless configuration is in your directory is (etc/ansible/wireless) and also find the server configuration directory.  
+
+# Switch on the Server router 
+- hosts: server
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: connect server
+     shell: wifi up
+     
+# Add the wireless IP to Server. you can change this wireless IP to your desire
+- hosts: server
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: add wireless ip
+     shell: ifconfig wlan0 "write your server wireless IP" netmask 255.255.255.0 up
+     
+# Add the wireless IP to Client 1.you can change this wireless IP to your desire
+- hosts: client1
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: add wireless ip
+     shell: ifconfig wlan0 "write your client1 wireless IP" netmask 255.255.255.0 up
+     
+# Add the wireless IP to Client 2 .you can change this wireless IP to your desire
+- hosts: client2
+  remote_user: root
+  connection: ssh
+  tasks:
+   - name: add wireless ip
+     shell: ifconfig wlan0 "write your client2 wireless IP" netmask 255.255.255.0 up
+
+# Run the iperf server for listening to the clients 
+- name: test server
+  remote_user: root 
+  hosts: server
+  tasks:  
+   - name: check iperf server running
+     shell: iperf -D -s -P 2
+     async: 50
+     
+ # Run the iperf client1 which points to the Wireless IP of server and save it in the result1.txt  
+- name: test client1
+  remote_user: root
+  connection: ssh
+  hosts: client1
+  tasks:
+   - name: iperf test
+     shell: iperf -c "write your Server Wireless IP" -t 20 
+     register: host1
+   - debug: var=host1.stdout
+   - local_action: copy content={{ host1.stdout }} dest=/etc/ansible/result1.txt
+   
+# save the result of the iperf result1.txt  in the txt file output.txt   
+- name: save first task
+  hosts: client2
+  tasks:
+   - local_action: shell test=$(cat result1.txt output.txt); echo $test > output.txt
+
+# Run the iperf client2 which points to the Wireless IP of server and save it in the result2.txt 
+- name: test client2
+  remote_user: root
+  connection: ssh
+  hosts: client2
+  tasks:
+   - name: iperf test
+     shell: iperf -c 1"write your Server Wireless IP"  -t 15
+     register: host2
+   - debug: var=host2.stdout 
+   - local_action: copy content={{ host2.stdout }} dest=/etc/ansible/result2.txt
+   
+# save the result of the iperf result2.txt  in the txt file output.txt which means both results are save in one.    
+- name: save second task
+  hosts: client3
+  tasks:
+   - local_action: shell test=$(cat result2.txt output.txt); echo $test > output.txt

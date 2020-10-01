@@ -1,0 +1,32 @@
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option hwmode '11a'
+	option path 'soc/soc:pcie/pci0000:00/0000:00:01.0/0000:01:00.0'
+	option country '00'
+	option legacy_rates '1'
+	option htmode 'VHT40'
+# you can change the channel in the below:
+	option channel '36'
+	option disabled '0'
+
+config wifi-iface 'default_radio0'
+	option device 'radio0'
+	option mode 'ap'
+	option encryption 'none'
+	option ssid 'Server'
+	option log_level '1'
+	option channel 'yes'
+	option htmode 'HT36'
+	option disabled '0'
+
+config wifi-device 'radio1'
+	option type 'mac80211'
+	option channel '11'
+	option hwmode '11g'
+	option path 'soc/soc:pcie/pci0000:00/0000:00:02.0/0000:02:00.0'
+	option htmode 'HT20'
+	option country '00'
+	option legacy_rates '1'
+	option disabled '1'
+
+# you can modifiy this configuration which is related to the server wireless configuration 
