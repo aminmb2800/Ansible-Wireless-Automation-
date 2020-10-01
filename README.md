@@ -3,7 +3,7 @@ The wireless automation fairness between two clients via one server
 
 ## YAML
 
-I am using [YAML](https://blog.stackpath.com/yaml/) for config routers.  
+I used [YAML](https://blog.stackpath.com/yaml/) for configuring routers.
 
 ## Usage
 
