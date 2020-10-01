@@ -1,6 +1,10 @@
 # Ansible-Wireless-Automation
 The wireless automation fairness between two clients via one server  
 
+## YAML
+
+I am using [YAML](https://blog.stackpath.com/yaml/) for config routers.  
+
 ## Usage
 
 -Evaluate the impact of particular configuration settings across pre-defined scenarios <br/>
